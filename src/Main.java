@@ -1,14 +1,21 @@
+import exseptions.TemplateNotFoundException;
+
 import java.io.IOException;
 
 public class Main {
+
     public static void main(String[] args) {
 
         Starter starter = new Starter();
         starter.initStartingInfo();
 
-        try{
+        FinderChanges finderChanges = new FinderChanges(starter.getYesterdayPage(), starter.getTodayPage());
 
-        } catch (IOException e) {
+
+        try{
+            MessageGenerator messageGenerator = new MessageGenerator();
+            messageGenerator.generatingMessage(finderChanges.findChanges());
+        } catch (IOException | TemplateNotFoundException e) {
             e.printStackTrace();
         }
     }
